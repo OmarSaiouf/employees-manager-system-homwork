@@ -1,9 +1,12 @@
 @extends('admin.main')
 
-
-
 @section('content')
     <div class="app-content-header">
+        @if (session('success'))
+            <div class="alert alert-success" role="alert">
+                {{ session('success') }}
+            </div>
+        @endif
         <!--begin::Container-->
         <div class="container-fluid">
             <!--begin::Row-->
@@ -23,10 +26,10 @@
         <!--end::Container-->
     </div>
     <div class="app-content">
-        <button type="button" class="btn btn-success mb-2">Create Employee <i class="fa-solid fa-plus"></i></button>
+        <a href="{{ route('employee.create') }}" class="btn btn-success mb-2"><i class="bi bi-plus"></i> Create Employee</a>
         <div class="card mb-4">
             <div class="card-header">
-                <h3 class="card-title">Simple Full Width Table</h3>
+                <h3 class="card-title">({{ $employeesCount }}) Employees</h3>
                 <div class="card-tools">
                     <ul class="pagination pagination-sm float-end">
                         <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
@@ -42,53 +45,45 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th style="width: 10px">#</th>
-                            <th>Task</th>
-                            <th>Progress</th>
-                            <th style="width: 40px">Label</th>
+                            <th style="width: 1px">#</th>
+                            <th>Full Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>City</th>
+                            <th>Salary</th>
+                            <th>Department</th>
+                            <th style="width: 4px">Options</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="align-middle">
-                            <td>1.</td>
-                            <td>Update software</td>
-                            <td>
-                                <div class="progress progress-xs">
-                                    <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
-                                </div>
-                            </td>
-                            <td><span class="badge text-bg-danger">55%</span></td>
-                        </tr>
-                        <tr class="align-middle">
-                            <td>2.</td>
-                            <td>Clean database</td>
-                            <td>
-                                <div class="progress progress-xs">
-                                    <div class="progress-bar text-bg-warning" style="width: 70%"></div>
-                                </div>
-                            </td>
-                            <td><span class="badge text-bg-warning">70%</span></td>
-                        </tr>
-                        <tr class="align-middle">
-                            <td>3.</td>
-                            <td>Cron job running</td>
-                            <td>
-                                <div class="progress progress-xs progress-striped active">
-                                    <div class="progress-bar text-bg-primary" style="width: 30%"></div>
-                                </div>
-                            </td>
-                            <td><span class="badge text-bg-primary">30%</span></td>
-                        </tr>
-                        <tr class="align-middle">
-                            <td>4.</td>
-                            <td>Fix and squish bugs</td>
-                            <td>
-                                <div class="progress progress-xs progress-striped active">
-                                    <div class="progress-bar text-bg-success" style="width: 90%"></div>
-                                </div>
-                            </td>
-                            <td><span class="badge text-bg-success">90%</span></td>
-                        </tr>
+                        @foreach ($employees as $k => $item)
+                            <tr class="align-middle">
+                                <a href="{{ route('employee.show', $item['id']) }}">
+                                    <td>{{ $k + 1 }}.</td>
+                                    <td>{{ $item['first_name'] }} {{ $item['last_name'] }}</td>
+                                </a>
+                                <td>
+                                    {{ $item['email'] }}
+                                </td>
+                                <td>{{ $item['phone'] }}</td>
+                                <td>{{ $item['city'] }}</td>
+                                <td>{{ $item['salary'] }}</td>
+                                <td>{{ $item['department'] }}</td>
+                                <td>
+                                    <form id="delete-form-{{ $item['id'] }}"
+                                        action="{{ route('employee.destroy', $item['id']) }}" method="post">
+                                        @csrf
+                                        @method('DELETE')
+
+                                    </form>
+                                    <a href="{{ route('employee.edit', $item['id']) }}"><i class="bi bi-pen-fill"></i></a>
+                                    <a
+                                        onclick="event.preventDefault(); document.getElementById('delete-form-{{ $item['id'] }}').submit();"><i
+                                            class="bi bi-trash-fill text-danger"></i></a>
+                                </td>
+                            </tr>
+                        @endforeach
+
                     </tbody>
                 </table>
             </div>
