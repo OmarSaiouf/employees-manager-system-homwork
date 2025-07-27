@@ -48,10 +48,12 @@
                             <th style="width: 1px">#</th>
                             <th>Full Name</th>
                             <th>Email</th>
+                            <th>Rank</th>
                             <th>Phone</th>
                             <th>City</th>
                             <th>Salary</th>
                             <th>Department</th>
+                            <th>Description</th>
                             <th style="width: 4px">Options</th>
                         </tr>
                     </thead>
@@ -66,9 +68,11 @@
                                     {{ $item['email'] }}
                                 </td>
                                 <td>{{ $item['phone'] }}</td>
+                                <td>{{ $item['rank'] }}</td>
                                 <td>{{ $item['city'] }}</td>
                                 <td>{{ $item['salary'] }}</td>
                                 <td>{{ $item['department'] }}</td>
+                                <td>{{ $item['description'] }}</td>
                                 <td>
                                     <form id="delete-form-{{ $item['id'] }}"
                                         action="{{ route('employee.destroy', $item['id']) }}" method="post">

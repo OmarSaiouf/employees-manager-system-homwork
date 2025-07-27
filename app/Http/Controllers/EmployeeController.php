@@ -47,7 +47,7 @@ class EmployeeController extends Controller
                 "max:1000",
                 function ($attribute, $value, $fail) {
                     if (preg_match('/اسرائيل|\+972|972|(i|I)srael|(il|IL)/i', $value)) {
-                        $fail('The ' . $attribute . ' field cannot contain the word "اسرائيل".');
+                        $fail("تم رفض '$attribute' لاحتوائه على محتوى غير مناسب ");
                     }
                 }
             ],
@@ -56,7 +56,7 @@ class EmployeeController extends Controller
 
         Employee::create($request->all());
 
-        return redirect()->route('employee.index')->with('success', 'Employee created successfully.');
+        return redirect()->route('employee.index')->with('success', 'تم إضافة الموظف بنجاح');
     }
 
     /**
@@ -97,13 +97,13 @@ class EmployeeController extends Controller
                 "max:1000",
                 function ($attribute, $value, $fail) {
                     if (preg_match('/اسرائيل|\+972|972|(i|I)srael|(il|IL)/i', $value)) {
-                        $fail('The ' . $attribute . ' field cannot contain the word "اسرائيل".');
+                        $fail("تم رفض '$attribute' لاحتوائه على محتوى غير مناسب ");
                     }
                 }
             ],
         ]);
         $employee->update($request->all());
-        return redirect()->route('employee.index')->with('success', 'Employee updated successfully.');
+        return redirect()->route('employee.index')->with('success', 'تم تعديل معلومات الموظف');
     }
 
     /**
@@ -112,6 +112,6 @@ class EmployeeController extends Controller
     public function destroy(Employee $employee)
     {
         $employee->delete();
-        return redirect()->route('employee.index')->with('success', 'Employee deleted successfully.');
+        return redirect()->route('employee.index')->with('success', 'تم حذف الموظف بنجاح.');
     }
 }

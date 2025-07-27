@@ -21,6 +21,7 @@ class EmployeeFactory extends Factory
             "first_name" => $this->faker->firstName,
             "last_name" => $this->faker->lastName,
             "email" => $this->faker->email,
+            "rank" => $this->faker->randomElement(['Lead', 'Senior', 'Junior', 'Intern']),
             "phone" => $this->faker->phoneNumber,
             "city" => $this->faker->city,
             "salary" => $this->faker->randomFloat(2, 30000, 100000),

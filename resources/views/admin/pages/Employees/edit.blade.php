@@ -67,6 +67,11 @@
                             value="{{ old('phone', $employee->phone) }}" />
                     </div>
                     <div class="mb-3">
+                        <label for="exampleInputRank1" class="form-label">Rank</label>
+                        <input type="text" class="form-control" id="exampleInputRank1" name="rank"
+                            value="{{ old('rank', $employee->rank) }}" />
+                    </div>
+                    <div class="mb-3">
                         <label for="exampleInputSalary1" class="form-label">Salary</label>
                         <input type="number" class="form-control" id="exampleInputSalary1" name="salary"
                             value="{{ old('salary', $employee->salary) }}" />
